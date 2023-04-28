@@ -1,6 +1,7 @@
 package br.unipar.pet.dogui.service.repository;
 
 import br.unipar.pet.dogui.model.Endereco;
+import br.unipar.pet.dogui.model.Pessoa;
 import br.unipar.pet.dogui.model.Servico;
 import br.unipar.pet.dogui.utils.ConnectionFactory;
 import java.sql.Connection;
@@ -13,16 +14,16 @@ import java.util.ArrayList;
 public class EnderecoRepository {
 
     private static final String INSERT
-            = "INSERT INTO endereco (nomeRua, dsBairro, nrCasa, nrCep, complemento, stAtivo) VALUES(?, ?, ?, ?, ?, ?);";
+            = "INSERT INTO endereco (nomeRua, dsBairro, nrCasa, nrCep, complemento, stAtivo, pessoa_id) VALUES(?, ?, ?, ?, ?, ?, ?);";
     private static final String UPDATE
-            = "UPDATE endereco SET nomeRua=?, dsBairro=?, nrCasa=?, nrCep=?, complemento=?, stAtivo=?"
+            = "UPDATE endereco SET nomeRua=?, dsBairro=?, nrCasa=?, nrCep=?, complemento=?, stAtivo=?, pessoa_id=?"
             + "WHERE id= ? ;";
     private static final String DELETE
             = "UPDATE endereco SET status=false WHERE id= ? ;";
     private static final String FIND_BY_ID
-            = "SELECT id, nomeRua, dsBairro, nrCasa, nrCep, complemento, stAtivo FROM endereco where id = ?;";
+            = "SELECT id, nomeRua, dsBairro, nrCasa, nrCep, complemento, stAtivo, pessoa_id FROM endereco where id = ?;";
     private static final String FIND_ALL
-            = "SELECT id, nomeRua, dsBairro, nrCasa, nrCep, complemento, stAtivo FROM endereco";
+            = "SELECT id, nomeRua, dsBairro, nrCasa, nrCep, complemento, stAtivo, pessoa_id FROM endereco";
 
     public Endereco insert(Endereco endereco) throws SQLException {
 
@@ -42,6 +43,7 @@ public class EnderecoRepository {
             ps.setString(4, endereco.getNrCep());
             ps.setString(5, endereco.getComplemento());
             ps.setBoolean(5, endereco.isStAtivo());
+            ps.setInt(6, endereco.getPessoa().getId());
             ps.executeUpdate();
 
             rs = ps.getGeneratedKeys();
@@ -89,6 +91,10 @@ public class EnderecoRepository {
                 endereco.setNrCasa(rs.getInt("nrCasa"));
                 endereco.setNrCep(rs.getString("nrCep"));
                 endereco.setStAtivo(rs.getBoolean("stAtivo"));
+                
+                int pessoa_id = rs.getInt("pessoa_id");
+                Pessoa pessoa = new PessoaRepository().findById(pessoa_id);
+                endereco.setPessoa(pessoa);
 
                 listaResultado.add(endereco);
             }
@@ -135,6 +141,10 @@ public class EnderecoRepository {
                 endereco.setNrCasa(rs.getInt("nrCasa"));
                 endereco.setNrCep(rs.getString("nrCep"));
                 endereco.setStAtivo(rs.getBoolean("stAtivo"));
+                
+                int pessoa_id = rs.getInt("pessoa_id");
+                Pessoa pessoa = new PessoaRepository().findById(pessoa_id);
+                endereco.setPessoa(pessoa);
 
                 listaResultado.add(endereco);
             }
@@ -195,6 +205,7 @@ public class EnderecoRepository {
             ps.setString(4, endereco.getNrCep());
             ps.setString(5, endereco.getComplemento());
             ps.setBoolean(5, endereco.isStAtivo());
+            ps.setInt(6, endereco.getPessoa().getId());
             ps.execute();
 
         } finally {
@@ -234,6 +245,10 @@ public class EnderecoRepository {
                 resultado.setNrCasa(rs.getInt("nrCasa"));
                 resultado.setNrCep(rs.getString("nrCep"));
                 resultado.setStAtivo(rs.getBoolean("stAtivo"));
+                
+                int pessoa_id = rs.getInt("pessoa_id");
+                Pessoa pessoa = new PessoaRepository().findById(pessoa_id);
+                resultado.setPessoa(pessoa);
 
             }
 

@@ -24,7 +24,7 @@ public class PessoaRepository {
 
     private static final String INSERT
             = "INSERT INTO pessoa (nome, nr_telefone, email) VALUES (?, ?, ?)";
-
+    
     private static final String FIND_ALL
             = "SELECT * FROM pessoa";
     

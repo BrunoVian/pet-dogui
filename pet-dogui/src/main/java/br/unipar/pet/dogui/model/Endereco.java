@@ -9,11 +9,12 @@ public class Endereco {
     private int nrCasa;
     private String nrCep;
     private boolean stAtivo;
+    private Pessoa pessoa;
 
     public Endereco() {
     }
 
-    public Endereco(int id, String nomeRua, String complemento, String dsBairro, int nrCasa, String nrCep, boolean stAtivo) {
+    public Endereco(int id, String nomeRua, String complemento, String dsBairro, int nrCasa, String nrCep, boolean stAtivo, Pessoa pessoa) {
         this.id = id;
         this.nomeRua = nomeRua;
         this.complemento = complemento;
@@ -21,7 +22,11 @@ public class Endereco {
         this.nrCasa = nrCasa;
         this.nrCep = nrCep;
         this.stAtivo = stAtivo;
+        this.pessoa = pessoa;
     }
+
+    
+    
     public int getId() {
         return id;
     }
@@ -77,6 +82,16 @@ public class Endereco {
     public void setStAtivo(boolean stAtivo) {
         this.stAtivo = stAtivo;
     }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+   
 
     @Override
     public String toString() {
