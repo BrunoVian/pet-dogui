@@ -36,6 +36,9 @@ public class PessoaRepository {
     
     private static final String DELETE
             ="DELETE FROM pessoa WHERE id = ?";
+    
+    private static final String FIND_ENDERECO_BY_PESSOA_ID
+            ="SELECT * FROM endereco WHERE pessoa_id = ?";
 
     
 
@@ -125,9 +128,7 @@ public class PessoaRepository {
 
         ArrayList<Endereco> enderecos = new ArrayList<>();
         
-        String sql = "SELECT * FROM endereco WHERE pessoa_id = ?";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(FIND_ENDERECO_BY_PESSOA_ID)) {
 
             statement.setInt(1, pessoaId);
             ResultSet resultSet = statement.executeQuery();
@@ -187,8 +188,7 @@ public class PessoaRepository {
 
     }
     
-    
-     public ArrayList<Pessoa> findWithParameters(String nome) throws SQLException {
+    public ArrayList<Pessoa> findWithParameters(String nome) throws SQLException {
 
         Connection conn = null;
         PreparedStatement ps = null;
