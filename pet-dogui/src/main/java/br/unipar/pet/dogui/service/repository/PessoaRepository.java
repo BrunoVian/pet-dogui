@@ -168,8 +168,7 @@ public class PessoaRepository {
                 resultado.setNome(rs.getString("nome"));
                 resultado.setNrTelefone(rs.getString("nr_telefone"));
                 resultado.setEmail(rs.getString("email"));
-
-
+                resultado.setListaEnderecos(findEnderecosByPessoaId(resultado.getId()));
             }
 
         } finally {
@@ -185,6 +184,51 @@ public class PessoaRepository {
         }
 
         return resultado;
+
+    }
+    
+    
+     public ArrayList<Pessoa> findWithParameters(String nome) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Pessoa> listaResultado = new ArrayList<>();
+
+        try {
+
+            conn = new ConnectionFactory().getConnection();
+
+            ps = conn.prepareStatement(FIND_ALL
+                    + " where  nome '%" + nome + "%'");
+            System.out.println(ps.toString());
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Pessoa pessoa = new Pessoa();
+                pessoa.setId(rs.getInt("id"));
+                pessoa.setNome(rs.getString("nome"));
+                pessoa.setEmail("email");
+                pessoa.setNrTelefone(rs.getString("telefone"));
+                pessoa.setListaEnderecos(findEnderecosByPessoaId(pessoa.getId()));
+
+                listaResultado.add(pessoa);
+            }
+
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return listaResultado;
 
     }
 

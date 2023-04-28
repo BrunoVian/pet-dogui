@@ -13,16 +13,16 @@ import java.util.ArrayList;
 public class ServicoRepository {
 
     private static final String INSERT
-            = "INSERT INTO servico (ds_servico, vlr_servico, status) VALUES(?, ?, ?);";
+            = "INSERT INTO servico (descricao, valor, status) VALUES(?, ?, ?);";
     private static final String UPDATE
-            = "UPDATE servico SET ds_servico= ?, vlr_servico=?, status= ? " +
+            = "UPDATE servico SET descricao= ?, valor=?, status= ? " +
               "WHERE id= ? ;";
     private static final String DELETE
             = "UPDATE servico SET status= false WHERE id= ? ;";
     private static final String FIND_BY_ID
-            = "SELECT id, ds_servico, vlr_servico, status FROM servico where id = ?;";
+            = "SELECT id, descricao, valor, status FROM servico where id = ?;";
     private static final String FIND_ALL
-            = "SELECT id, ds_servico, vlr_servico, status FROM servico";
+            = "SELECT id, descricao, valor, status FROM servico";
 
     
     public Servico insert(Servico servico) throws SQLException {
@@ -77,9 +77,9 @@ public class ServicoRepository {
             while(rs.next()){
                 
                 Servico servico = new Servico();
-                servico.setDescricao(rs.getString("ds_servico"));
+                servico.setDescricao(rs.getString("descricao"));
                 servico.setId(rs.getInt("id"));
-                servico.setValor(rs.getDouble("vlr_servico"));
+                servico.setValor(rs.getDouble("valor"));
                 servico.setStatus(rs.getBoolean("status"));
                 
                 listaResultado.add(servico);
@@ -117,9 +117,9 @@ public class ServicoRepository {
             while(rs.next()){
                 
                 Servico servico = new Servico();
-                servico.setDescricao(rs.getString("ds_servico"));
+                servico.setDescricao(rs.getString("descricao"));
                 servico.setId(rs.getInt("id"));
-                servico.setValor(rs.getDouble("vlr_servico"));
+                servico.setValor(rs.getDouble("valor"));
                 servico.setStatus(rs.getBoolean("status"));
                 
                 listaResultado.add(servico);
@@ -204,10 +204,10 @@ public class ServicoRepository {
             
             while(rs.next()){
                 
-                resultado.setDescricao(rs.getString("ds_servico"));
+                resultado.setDescricao(rs.getString("descricao"));
                 resultado.setId(rs.getInt("id"));
                 resultado.setStatus(rs.getBoolean("status"));
-                resultado.setValor(rs.getDouble("vlr_servico"));
+                resultado.setValor(rs.getDouble("valor"));
                 
             }
 

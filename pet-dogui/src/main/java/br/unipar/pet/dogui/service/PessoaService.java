@@ -1,45 +1,36 @@
 package br.unipar.pet.dogui.service;
 
-import br.unipar.pet.dogui.model.Endereco;
-import br.unipar.pet.dogui.service.repository.EnderecoRepository;
+import br.unipar.pet.dogui.model.Pessoa;
+import br.unipar.pet.dogui.service.repository.PessoaRepository;
 import java.util.ArrayList;
 
 public class PessoaService {
-    private EnderecoRepository repository = new EnderecoRepository();
 
-    public Endereco insert(Endereco endereco) throws Exception {
+    
+    private PessoaRepository repository = new PessoaRepository();
+
+    public Pessoa insert(Pessoa pessoa) throws Exception {
         
-        validaEndereco(endereco);
+        validaPessoa(pessoa);
         
-        return repository.insert(endereco);
+        return repository.insert(pessoa);
         
     }
 
-    private void validaEndereco(Endereco endereco) throws Exception {
+    private void validaPessoa(Pessoa pessoa) throws Exception {
     
-        if (endereco.getNomeRua() == null && 
-            endereco.getNomeRua().isEmpty()) {
-            throw new Exception("Rua não informada ");
+        if (pessoa.getNome() == null && 
+            pessoa.getNome().isEmpty()) {
+            throw new Exception("Nome não informado");
         }
-        
-        if (endereco.getDsBairro()== null && 
-            endereco.getDsBairro().isEmpty()) {
-            throw new Exception("Bairro não informado ");
-        }
-        
-        if (endereco.getNrCep()== null && 
-            endereco.getNrCep().isEmpty()) {
-            throw new Exception("CEP não informado ");
-        }
-        
     
     }
 
-    public Endereco update(Endereco endereco) throws Exception {
+    public Pessoa update(Pessoa pessoa) throws Exception {
     
-        validaEndereco(endereco);
+        validaPessoa(pessoa);
         
-        return repository.update(endereco);
+        return repository.update(pessoa);
     
     }
 
@@ -49,21 +40,21 @@ public class PessoaService {
     
     }
 
-    public Endereco findById(int id)  throws Exception {
+    public Pessoa findById(int id)  throws Exception {
     
         return repository.findById(id);
         
     }
     
-    public ArrayList<Endereco> findByAll()  throws Exception {
+    public ArrayList<Pessoa> findByAll()  throws Exception {
     
         return repository.findAll();
         
     }
     
-    public ArrayList<Endereco> findWithParameteres(String descricao)  throws Exception {
+    public ArrayList<Pessoa> findWithParameteres(String nome)  throws Exception {
     
-        return repository.findWithParameters(descricao);
+        return repository.findWithParameters(nome);
         
     }
 }
