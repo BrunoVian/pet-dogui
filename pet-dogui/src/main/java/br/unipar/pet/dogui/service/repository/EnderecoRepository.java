@@ -14,16 +14,16 @@ import java.util.ArrayList;
 public class EnderecoRepository {
 
     private static final String INSERT
-            = "INSERT INTO endereco (nomeRua, dsBairro, nrCasa, nrCep, complemento, stAtivo, pessoa_id) VALUES(?, ?, ?, ?, ?, ?, ?);";
+            = "INSERT INTO endereco (nomeRua, bairro, numero, cep, complemento, stAtivo, id_pessoa) VALUES(?, ?, ?, ?, ?, ?, ?);";
     private static final String UPDATE
-            = "UPDATE endereco SET nomeRua=?, dsBairro=?, nrCasa=?, nrCep=?, complemento=?, stAtivo=?, pessoa_id=?"
+            = "UPDATE endereco SET nomeRua=?, bairro=?, numero=?, cep=?, complemento=?, stAtivo=?, id_pessoa=?"
             + "WHERE id= ? ;";
     private static final String DELETE
             = "UPDATE endereco SET status=false WHERE id= ? ;";
     private static final String FIND_BY_ID
-            = "SELECT id, nomeRua, dsBairro, nrCasa, nrCep, complemento, stAtivo, pessoa_id FROM endereco where id = ?;";
+            = "SELECT id, nomeRua, bairro, numero, cep, complemento, stAtivo, id_pessoa FROM endereco where id = ?";
     private static final String FIND_ALL
-            = "SELECT id, nomeRua, dsBairro, nrCasa, nrCep, complemento, stAtivo, pessoa_id FROM endereco";
+            = "SELECT id, nomeRua, bairro, numero, cep, complemento, stAtivo, id_pessoa FROM endereco";
 
     public Endereco insert(Endereco endereco) throws SQLException {
 
@@ -87,12 +87,12 @@ public class EnderecoRepository {
                 endereco.setId(rs.getInt("id"));
                 endereco.setNomeRua(rs.getString("nomeRua"));
                 endereco.setComplemento("complemento");
-                endereco.setDsBairro(rs.getString("dsBairro"));
-                endereco.setNrCasa(rs.getInt("nrCasa"));
-                endereco.setNrCep(rs.getString("nrCep"));
+                endereco.setDsBairro(rs.getString("bairro"));
+                endereco.setNrCasa(rs.getInt("numero"));
+                endereco.setNrCep(rs.getString("cep"));
                 endereco.setStAtivo(rs.getBoolean("stAtivo"));
                 
-                int pessoa_id = rs.getInt("pessoa_id");
+                int pessoa_id = rs.getInt("id_pessoa");
                 Pessoa pessoa = new PessoaRepository().findById(pessoa_id);
                 endereco.setPessoa(pessoa);
 
@@ -137,12 +137,12 @@ public class EnderecoRepository {
                 endereco.setId(rs.getInt("id"));
                 endereco.setNomeRua(rs.getString("nomeRua"));
                 endereco.setComplemento("complemento");
-                endereco.setDsBairro(rs.getString("dsBairro"));
-                endereco.setNrCasa(rs.getInt("nrCasa"));
-                endereco.setNrCep(rs.getString("nrCep"));
+                endereco.setDsBairro(rs.getString("bairro"));
+                endereco.setNrCasa(rs.getInt("numero"));
+                endereco.setNrCep(rs.getString("cep"));
                 endereco.setStAtivo(rs.getBoolean("stAtivo"));
                 
-                int pessoa_id = rs.getInt("pessoa_id");
+                int pessoa_id = rs.getInt("id_pessoa");
                 Pessoa pessoa = new PessoaRepository().findById(pessoa_id);
                 endereco.setPessoa(pessoa);
 
@@ -241,12 +241,12 @@ public class EnderecoRepository {
                 resultado.setId(rs.getInt("id"));
                 resultado.setNomeRua(rs.getString("nomeRua"));
                 resultado.setComplemento("complemento");
-                resultado.setDsBairro(rs.getString("dsBairro"));
-                resultado.setNrCasa(rs.getInt("nrCasa"));
-                resultado.setNrCep(rs.getString("nrCep"));
+                resultado.setDsBairro(rs.getString("bairro"));
+                resultado.setNrCasa(rs.getInt("numero"));
+                resultado.setNrCep(rs.getString("cep"));
                 resultado.setStAtivo(rs.getBoolean("stAtivo"));
                 
-                int pessoa_id = rs.getInt("pessoa_id");
+                int pessoa_id = rs.getInt("id_pessoa");
                 Pessoa pessoa = new PessoaRepository().findById(pessoa_id);
                 resultado.setPessoa(pessoa);
 

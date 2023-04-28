@@ -23,7 +23,7 @@ public class PessoaRepository {
     private Connection connection;
 
     private static final String INSERT
-            = "INSERT INTO pessoa (nome, nr_telefone, email) VALUES (?, ?, ?)";
+            = "INSERT INTO pessoa (nomePessoa, telefone, email) VALUES (?, ?, ?);";
     
     private static final String FIND_ALL
             = "SELECT * FROM pessoa";
@@ -32,7 +32,7 @@ public class PessoaRepository {
             ="SELECT * FROM pessoa WHERE id = ?";
     
     private static final String UPDATE
-            ="UPDATE pessoa SET nome = ?, nr_telefone = ?, email = ? WHERE id = ?";
+            ="UPDATE pessoa SET nomePessoa = ?, telefone = ?, email = ? WHERE id = ?";
     
     private static final String DELETE
             ="DELETE FROM pessoa WHERE id = ?";
@@ -99,8 +99,8 @@ public class PessoaRepository {
 
                 Pessoa pessoa = new Pessoa();
                 pessoa.setId(rs.getInt("id"));
-                pessoa.setNome(rs.getString("nome"));
-                pessoa.setNrTelefone(rs.getString("nr_telefone"));
+                pessoa.setNome(rs.getString("nomePessoa"));
+                pessoa.setNrTelefone(rs.getString("telefone"));
                 pessoa.setEmail(rs.getString("email"));
                 
                 pessoa.setListaEnderecos(findEnderecosByPessoaId(pessoa.getId()));
@@ -136,12 +136,12 @@ public class PessoaRepository {
             while (resultSet.next()) {
                 Endereco endereco = new Endereco();
                 endereco.setId(resultSet.getInt("id"));
-                endereco.setNomeRua(resultSet.getString("nome_rua"));
+                endereco.setNomeRua(resultSet.getString("nomeRua"));
                 endereco.setComplemento(resultSet.getString("complemento"));
-                endereco.setDsBairro(resultSet.getString("ds_bairro"));
-                endereco.setNrCasa(resultSet.getInt("nr_casa"));
-                endereco.setNrCep(resultSet.getString("nr_cep"));
-                endereco.setStAtivo(resultSet.getBoolean("st_ativo"));
+                endereco.setDsBairro(resultSet.getString("bairro"));
+                endereco.setNrCasa(resultSet.getInt("numero"));
+                endereco.setNrCep(resultSet.getString("cep"));
+                endereco.setStAtivo(resultSet.getBoolean("stAtivo"));
 
                 enderecos.add(endereco);
             }
@@ -166,8 +166,8 @@ public class PessoaRepository {
 
             while (rs.next()) {
                 resultado.setId(rs.getInt("id"));
-                resultado.setNome(rs.getString("nome"));
-                resultado.setNrTelefone(rs.getString("nr_telefone"));
+                resultado.setNome(rs.getString("nomePessoa"));
+                resultado.setNrTelefone(rs.getString("telefone"));
                 resultado.setEmail(rs.getString("email"));
                 resultado.setListaEnderecos(findEnderecosByPessoaId(resultado.getId()));
             }
@@ -200,7 +200,7 @@ public class PessoaRepository {
             conn = new ConnectionFactory().getConnection();
 
             ps = conn.prepareStatement(FIND_ALL
-                    + " where  nome '%" + nome + "%'");
+                    + " where  nomePessoa '%" + nome + "%'");
             System.out.println(ps.toString());
             rs = ps.executeQuery();
 
@@ -208,7 +208,7 @@ public class PessoaRepository {
 
                 Pessoa pessoa = new Pessoa();
                 pessoa.setId(rs.getInt("id"));
-                pessoa.setNome(rs.getString("nome"));
+                pessoa.setNome(rs.getString("nomePessoa"));
                 pessoa.setEmail("email");
                 pessoa.setNrTelefone(rs.getString("telefone"));
                 pessoa.setListaEnderecos(findEnderecosByPessoaId(pessoa.getId()));
