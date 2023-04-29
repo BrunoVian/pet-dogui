@@ -38,7 +38,7 @@ public class PessoaRepository {
             ="DELETE FROM pessoa WHERE id = ?";
     
     private static final String FIND_ENDERECO_BY_PESSOA_ID
-            ="SELECT * FROM endereco WHERE pessoa_id = ?";
+            ="SELECT * FROM endereco WHERE id_pessoa = ?";
 
     
 
@@ -126,27 +126,46 @@ public class PessoaRepository {
     
     private ArrayList<Endereco> findEnderecosByPessoaId(int pessoaId) throws SQLException {
 
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         ArrayList<Endereco> enderecos = new ArrayList<>();
         
-        try (PreparedStatement statement = connection.prepareStatement(FIND_ENDERECO_BY_PESSOA_ID)) {
+        try {
+            
+            conn = new ConnectionFactory().getConnection();
+            ps = conn.prepareStatement(FIND_ENDERECO_BY_PESSOA_ID);
 
-            statement.setInt(1, pessoaId);
-            ResultSet resultSet = statement.executeQuery();
+            ps.setInt(1, pessoaId);
+            rs = ps.executeQuery();
 
-            while (resultSet.next()) {
+            while (rs.next()) {
+                
                 Endereco endereco = new Endereco();
-                endereco.setId(resultSet.getInt("id"));
-                endereco.setNomeRua(resultSet.getString("nomeRua"));
-                endereco.setComplemento(resultSet.getString("complemento"));
-                endereco.setDsBairro(resultSet.getString("bairro"));
-                endereco.setNrCasa(resultSet.getInt("numero"));
-                endereco.setNrCep(resultSet.getString("cep"));
-                endereco.setStAtivo(resultSet.getBoolean("stAtivo"));
+                endereco.setId(rs.getInt("id"));
+                endereco.setNomeRua(rs.getString("nomeRua"));
+                endereco.setComplemento(rs.getString("complemento"));
+                endereco.setDsBairro(rs.getString("bairro"));
+                endereco.setNrCasa(rs.getInt("numero"));
+                endereco.setNrCep(rs.getString("cep"));
+                endereco.setStAtivo(rs.getBoolean("stAtivo"));
 
                 enderecos.add(endereco);
             }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
+
         return enderecos;
+
     }
 
     public Pessoa findById(int id) throws SQLException {
@@ -200,7 +219,7 @@ public class PessoaRepository {
             conn = new ConnectionFactory().getConnection();
 
             ps = conn.prepareStatement(FIND_ALL
-                    + " where  nomePessoa '%" + nome + "%'");
+                    + " where nomepessoa like '%" + nome + "%'");
             System.out.println(ps.toString());
             rs = ps.executeQuery();
 

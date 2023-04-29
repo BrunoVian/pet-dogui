@@ -46,10 +46,10 @@ public class PetService {
 
     }
 
-    public void delete(int id) throws Exception {
-
+ public void delete(int id) throws Exception {
+    
         repository.delete(id);
-
+    
     }
 
     public Pet findById(int id) throws Exception {

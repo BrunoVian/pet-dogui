@@ -19,11 +19,11 @@ public class EnderecoRepository {
             = "UPDATE endereco SET nomeRua=?, bairro=?, numero=?, cep=?, complemento=?, stAtivo=?, id_pessoa=?"
             + "WHERE id= ? ;";
     private static final String DELETE
-            = "UPDATE endereco SET status=false WHERE id= ? ;";
+            = "UPDATE endereco SET stAtivo=false WHERE id= ? ;";
     private static final String FIND_BY_ID
-            = "SELECT id, nomeRua, bairro, numero, cep, complemento, stAtivo, id_pessoa FROM endereco where id = ?";
+            = "SELECT * FROM endereco where id = ?";
     private static final String FIND_ALL
-            = "SELECT id, nomeRua, bairro, numero, cep, complemento, stAtivo, id_pessoa FROM endereco";
+            = "SELECT * FROM endereco";
 
     public Endereco insert(Endereco endereco) throws SQLException {
 
@@ -42,8 +42,8 @@ public class EnderecoRepository {
             ps.setInt(3, endereco.getNrCasa());
             ps.setString(4, endereco.getNrCep());
             ps.setString(5, endereco.getComplemento());
-            ps.setBoolean(5, endereco.isStAtivo());
-            ps.setInt(6, endereco.getPessoa().getId());
+            ps.setBoolean(6, endereco.isStAtivo());
+            ps.setInt(7, endereco.getPessoa().getId());
             ps.executeUpdate();
 
             rs = ps.getGeneratedKeys();
@@ -127,7 +127,7 @@ public class EnderecoRepository {
             conn = new ConnectionFactory().getConnection();
 
             ps = conn.prepareStatement(FIND_ALL
-                    + " where  nomeRua '%" + descricao + "%'");
+                    + " where nomerua like '%" + descricao + "%'");
             System.out.println(ps.toString());
             rs = ps.executeQuery();
 
@@ -204,8 +204,9 @@ public class EnderecoRepository {
             ps.setInt(3, endereco.getNrCasa());
             ps.setString(4, endereco.getNrCep());
             ps.setString(5, endereco.getComplemento());
-            ps.setBoolean(5, endereco.isStAtivo());
-            ps.setInt(6, endereco.getPessoa().getId());
+            ps.setBoolean(6, endereco.isStAtivo());
+            ps.setInt(7, endereco.getPessoa().getId());
+            ps.setInt(8, endereco.getId());
             ps.execute();
 
         } finally {

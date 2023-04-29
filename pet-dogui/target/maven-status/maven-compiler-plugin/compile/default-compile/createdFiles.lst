@@ -13,6 +13,7 @@ br\unipar\pet\dogui\resources\EnderecoResource.class
 br\unipar\pet\dogui\service\repository\PessoaRepository.class
 br\unipar\pet\dogui\model\Pessoa.class
 br\unipar\pet\dogui\model\Pet.class
+br\unipar\pet\dogui\resources\PessoaRecource.class
 br\unipar\pet\dogui\resources\ServicosResource.class
 br\unipar\pet\dogui\resources\PetResource.class
 br\unipar\pet\dogui\model\enums\GeneroEnum.class

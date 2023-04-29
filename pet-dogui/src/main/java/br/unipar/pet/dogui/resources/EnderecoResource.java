@@ -118,7 +118,7 @@ public class EnderecoResource {
     @GET
     @Path("filter")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findAllWithParameters(@QueryParam("nomeRua") String descricao) {
+    public Response findAllWithParameters(@QueryParam("nomerua") String descricao) {
         
         try {
             

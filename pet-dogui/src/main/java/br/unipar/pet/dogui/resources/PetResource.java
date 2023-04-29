@@ -2,6 +2,7 @@ package br.unipar.pet.dogui.resources;
 
 import br.unipar.pet.dogui.model.Pet;
 import br.unipar.pet.dogui.model.ErroValidacao;
+import br.unipar.pet.dogui.service.PessoaService;
 import br.unipar.pet.dogui.service.PetService;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -110,7 +111,7 @@ public class PetResource {
     @GET
     @Path("filter")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findAllWithParameters(@QueryParam("nm_Pet") String descricao) {
+    public Response findAllWithParameters(@QueryParam("nomepet") String descricao) {
         
         try {
             

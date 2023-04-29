@@ -19,11 +19,11 @@ public class PetRepository {
             = "UPDATE pet SET nomePet=?, dono_id=?, genero=?, peso=?, porte=?"
             + "WHERE id= ? ;";
     private static final String DELETE
-            = "DELETE pet WHERE id= ? ;";
+            = "DELETE from pet WHERE id=? ;";
     private static final String FIND_BY_ID
             = "SELECT id, nomePet, dono_id, genero, peso, porte FROM pet where id = ?;";
     private static final String FIND_ALL
-            = "SELECT id, nomePet, dono_id, genero, peso, porte FROM pet;";
+            = "SELECT * FROM pet";
 
     public Pet insert(Pet pet) throws SQLException {
 
@@ -123,18 +123,22 @@ public class PetRepository {
             conn = new ConnectionFactory().getConnection();
 
             ps = conn.prepareStatement(FIND_ALL
-                    + " where  nomePet '%" + descricao + "%'");
+                    + " where nomepet like '%" + descricao + "%'");
             System.out.println(ps.toString());
             rs = ps.executeQuery();
 
             while (rs.next()) {
 
                 Pet pet = new Pet();
-                ps.setString(1, pet.getNome());
-                ps.setInt(2, pet.getDono().getId());
-                ps.setString(3, pet.getGenero().toString());
-                ps.setDouble(4, pet.getPeso());
-                ps.setString(5, pet.getPorte().toString());
+                pet.setId(rs.getInt("id"));
+                pet.setNome(rs.getString("nomePet"));
+                pet.setGenero(GeneroEnum.valueOf(rs.getString("genero")));
+                pet.setPeso(rs.getDouble("peso"));
+                pet.setPorte(PorteEnum.valueOf(rs.getString("porte")));
+
+                int donoId = rs.getInt("dono_id");
+                Pessoa dono = new PessoaRepository().findById(donoId);
+                pet.setDono(dono);
 
                 listaResultado.add(pet);
             }
@@ -194,6 +198,7 @@ public class PetRepository {
             ps.setString(3, pet.getGenero().toString());
             ps.setDouble(4, pet.getPeso());
             ps.setString(5, pet.getPorte().toString());
+            ps.setInt(6, pet.getId());
             ps.execute();
 
         } finally {
@@ -227,7 +232,7 @@ public class PetRepository {
             while (rs.next()) {
 
                 resultado.setId(rs.getInt("id"));
-                resultado.setNome("nomePet");
+                resultado.setNome(rs.getString("nomePet"));
                 resultado.setGenero(GeneroEnum.valueOf(rs.getString("genero")));
                 resultado.setPeso(rs.getDouble("peso"));
                 resultado.setPorte(PorteEnum.valueOf(rs.getString("porte")));

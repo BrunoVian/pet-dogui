@@ -110,7 +110,7 @@ public class ServicoRepository {
             conn = new ConnectionFactory().getConnection();
 
             ps = conn.prepareStatement(FIND_ALL + 
-                    " where ds_servico like '%"+descricao+"%'");
+                    " where descricao like '%"+descricao+"%'");
             System.out.println(ps.toString());
             rs = ps.executeQuery();
             
