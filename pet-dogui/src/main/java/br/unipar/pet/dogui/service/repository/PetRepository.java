@@ -17,7 +17,7 @@ public class PetRepository {
             = "INSERT INTO pet (nomePet, dono_id, genero, peso, porte) VALUES(?, ?, ?, ?, ?);";
     private static final String UPDATE
             = "UPDATE pet SET nomePet=?, dono_id=?, genero=?, peso=?, porte=?"
-            + "WHERE id= ? ;";
+            + " WHERE id= ? ;";
     private static final String DELETE
             = "DELETE from pet WHERE id=? ;";
     private static final String FIND_BY_ID
