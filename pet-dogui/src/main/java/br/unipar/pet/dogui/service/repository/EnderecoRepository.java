@@ -17,7 +17,7 @@ public class EnderecoRepository {
             = "INSERT INTO endereco (nomeRua, bairro, numero, cep, complemento, stAtivo, id_pessoa) VALUES(?, ?, ?, ?, ?, ?, ?);";
     private static final String UPDATE
             = "UPDATE endereco SET nomeRua=?, bairro=?, numero=?, cep=?, complemento=?, stAtivo=?, id_pessoa=?"
-            + " WHERE id= ? ;";
+            + "WHERE id= ? ;";
     private static final String DELETE
             = "UPDATE endereco SET stAtivo=false WHERE id= ? ;";
     private static final String FIND_BY_ID
